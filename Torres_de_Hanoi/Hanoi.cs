@@ -8,7 +8,11 @@ namespace Torres_de_Hanoi
 {
     class Hanoi
     {
-        public Hanoi() { }
+        public int movements { get; set; }
+        public Hanoi()
+        {
+            movements = 0;
+        }
         /*TODO: Implementar métodos*/
         public void Mover_disco(Pila a, Pila b)
         {
@@ -34,33 +38,10 @@ namespace Torres_de_Hanoi
             {
                 a.push(b.pop());
             }
-            /*
-            if (a.Top == 0 && b.Top == 0)
-            {
-
-            }
-            else if (a.Top == 0 && b.Top > 0)
-            {
-                a.push(b.pop());
-            }
-            else if (b.Top == 0 && a.Top > 0)
-            {
-                b.push(a.pop());
-            }
-            else if (a.Top < b.Top)
-            {
-                b.push(a.pop());
-            }
-            else
-            {
-                a.push(b.pop());
-            }
-            */
         }
 
         public int iterativo(int n, Pila ini, Pila fin, Pila aux)
         {
-            int movements = 0;
             //Comprobamos si num es un número par o no
             if ((n % 2) == 0)
             {
@@ -91,6 +72,22 @@ namespace Torres_de_Hanoi
                         movements++;
                     }
                 } while (fin.Elementos.Count < n);
+            }
+            return movements;
+        }
+        public int recursivo(int n, Pila ini, Pila fin, Pila aux)
+        {
+            if (n == 1)
+            {
+                Mover_disco(ini, fin);
+                movements++;
+            }
+            else
+            {
+                recursivo(n - 1, ini, aux, fin);
+                Mover_disco(ini, fin);
+                movements++;
+                recursivo(n - 1, aux, fin, ini);
             }
             return movements;
         }
